@@ -3,7 +3,23 @@ from collections import defaultdict
 
 
 class AverageGdpReport(BaseReport):
+    """
+    Generates a report calculating the average GDP for each country from raw data.
+
+    This report sorts countries in descending order of their average GDP.
+    """
     def generate(self, data: list) -> dict:
+        """
+        Processes raw data to calculate the average GDP per country.
+
+        Args:
+            data: A list of dictionaries, where each dictionary represents a row
+                  from a CSV file with keys like 'country' and 'gdp'.
+
+        Returns:
+            A dictionary formatted for display, containing 'headers' (list of strings)
+            and 'rows' (list of lists of data).
+        """
         gdp_by_country = defaultdict(list)
         for row in data:
             country = row.get('country')
