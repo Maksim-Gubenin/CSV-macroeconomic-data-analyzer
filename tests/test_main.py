@@ -5,9 +5,15 @@ from unittest.mock import MagicMock, patch
 from main import main
 
 class TestMain:
+    """
+    Tests for the main function of the CLI tool.
+    """
     @patch("main.ReportFactory")
     @patch("main.read_csv_files")
     def test_main_success(self, mock_read_csv: Any, mock_factory: Any) -> None:
+        """
+        Tests successful execution of the main script with valid inputs.
+        """
         mock_read_csv.return_value = [{"country": "USA", "year": "2023", "gdp": "25000"}]
 
         mock_report_instance = MagicMock()

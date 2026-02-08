@@ -1,3 +1,9 @@
+"""
+CLI tool for analyzing macroeconomic data from CSV files and generating reports.
+
+This script processes one or more CSV files containing economic indicators (e.g., GDP),
+and outputs a formatted report to the console based on the specified report type.
+"""
 import argparse
 import sys
 
@@ -6,6 +12,13 @@ from utils.file_reader import read_csv_files
 
 
 def main() -> None:
+    """
+    Main entry point for the script.
+
+    Parses command-line arguments, reads data from CSV files,
+    generates the specified report, and prints it to the console.
+    Handles file and data processing errors using logging.
+    """
     parser = argparse.ArgumentParser(
         description="Анализ макроэкономических данных и формирование отчетов",
     )
