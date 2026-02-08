@@ -1,0 +1,25 @@
+[project]
+name = "csv-macroeconomic-data-analyzer"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Maksim",email = "maksimgubenin@mail.ru"}
+]
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "tabulate (>=0.9.0,<0.10.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[dependency-groups]
+dev = [
+    "pytest (>=9.0.2,<10.0.0)",
+    "pytest-cov (>=7.0.0,<8.0.0)",
+    "ruff (>=0.15.0,<0.16.0)",
+    "mypy (>=1.19.1,<2.0.0)"
+]
