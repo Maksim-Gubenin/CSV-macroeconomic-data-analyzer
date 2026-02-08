@@ -6,10 +6,13 @@ and outputs a formatted report to the console based on the specified report type
 """
 import argparse
 import sys
+import logging
 
 from reports.report_factory import ReportFactory
 from utils.file_reader import read_csv_files
 
+
+logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
 
 def main() -> None:
     """
@@ -41,7 +44,7 @@ def main() -> None:
         data = read_csv_files(args.files)
 
         if not data:
-            print("Нет данных для анализа")
+            logging.info("Нет данных для анализа")
             return
 
         report = ReportFactory.get_report(args.report)
@@ -49,13 +52,13 @@ def main() -> None:
         report.print_report(result)
 
     except FileNotFoundError as e:
-        print(f"Ошибка: Файл не найден - {e}", file=sys.stderr)
+        logging.error(f"Ошибка: Файл не найден - {e}")
         sys.exit(1)
     except ValueError as e:
-        print(f"Ошибка в данных: {e}", file=sys.stderr)
+        logging.error(f"Ошибка в данных: {e}")
         sys.exit(1)
     except (KeyError, TypeError, IOError) as e:
-        print(f"Ошибка при обработке данных: {e}", file=sys.stderr)
+        logging.error(f"Ошибка при обработке данных: {e}")
         sys.exit(1)
 
 

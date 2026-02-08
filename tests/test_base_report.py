@@ -1,3 +1,4 @@
+import logging
 from io import StringIO
 from unittest.mock import patch
 
@@ -39,17 +40,19 @@ class TestBaseReport:
         assert hasattr(report, "generate")
         assert hasattr(report, "print_report")
 
-    def test_print_report_empty_data(self) -> None:
+    def test_print_report_empty_data(self, caplog) -> None:
+        """
+        Tests that logging is used correctly when the report data is empty.
+        """
         class TestReport(BaseReport):
             def generate(self, data: list) -> dict:
                 return {}
 
         report = TestReport()
 
-        with patch("sys.stdout", new_callable=StringIO) as mock_stdout:
+        with caplog.at_level(logging.INFO):
             report.print_report({})
-            output = mock_stdout.getvalue()
-            assert "Нет данных для отображения" in output.strip()
+            assert "Нет данных для отображения" in caplog.text
 
     def test_print_report_valid_data(self) -> None:
         """
