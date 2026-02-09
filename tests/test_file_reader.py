@@ -9,7 +9,13 @@ from utils.file_reader import read_csv_files
 
 
 class TestFileReader:
+    """
+    Tests for the read_csv_files function in utils/file_reader.py.
+    """
     def test_read_single_valid_file(self) -> None:
+        """
+        Tests reading data from a single, valid CSV file with all expected columns.
+        """
         with tempfile.NamedTemporaryFile(mode="w", suffix=".csv", delete=False, newline='') as f:
             writer = csv.writer(f)
             writer.writerow(
@@ -30,6 +36,9 @@ class TestFileReader:
             os.unlink(temp_file)
 
     def test_read_multiple_files(self) -> None:
+        """
+        Tests reading and combining data from multiple valid CSV files.
+        """
         files: List[str] = []
         try:
             for i in range(2):
@@ -49,12 +58,18 @@ class TestFileReader:
                 os.unlink(file)
 
     def test_file_not_found(self) -> None:
+        """
+        Ensures a FileNotFoundError is raised when a specified file does not exist.
+        """
         with pytest.raises(
             FileNotFoundError, match="Файл nonexistent.csv не существует"
         ):
             read_csv_files(["nonexistent.csv"])
 
     def test_empty_file(self) -> None:
+        """
+        Tests handling of a file that contains only headers but no data rows.
+        """
         with tempfile.NamedTemporaryFile(mode="w", suffix=".csv", delete=False, newline='') as f:
             writer = csv.writer(f)
             writer.writerow(["country", "gdp"])
@@ -67,9 +82,13 @@ class TestFileReader:
             os.unlink(temp_file)
 
     def test_file_with_special_characters(self) -> None:
+        """
+        Tests reading data that includes special characters and different encodings.
+        """
         with tempfile.NamedTemporaryFile(
             mode="w", suffix=".csv", delete=False, encoding="utf-8", newline=''
         ) as f:
+
             writer = csv.writer(f)
             writer.writerow(["country", "gdp"])
             writer.writerow(["Страна с-ёЁ", "1000"])
