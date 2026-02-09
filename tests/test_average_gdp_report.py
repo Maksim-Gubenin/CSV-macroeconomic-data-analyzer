@@ -13,6 +13,9 @@ for p in FILE_PATHS:
 
 
 def test_average_gdp_report_generation():
+    """
+    Tests that the average GDP report generates correctly with known test data.
+    """
     all_data = read_csv_files(FILE_PATHS)
     report_generator = AverageGdpReport()
     result = report_generator.generate(all_data)
@@ -27,7 +30,9 @@ def test_average_gdp_report_generation():
 
 
 def test_average_gdp_empty_data():
-    """Тестирует обработку пустого списка данных."""
+    """
+    Tests the handling of an empty data list provided to the generator.
+    """
     report_generator = AverageGdpReport()
     result = report_generator.generate([])
 
